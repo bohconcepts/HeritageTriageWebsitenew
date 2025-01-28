@@ -15,11 +15,12 @@ import React, { useEffect } from 'react';
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
               <div className="relative" data-aos="fade-right">
-                <img
-                  className="w-full h-[500px] object-contain rounded-xl"
-                  src="/src/public/images/About_us.jpg"
-                  alt="Business Page"
-                />
+              <img
+                className="w-full h-[500px] object-contain rounded-xl"
+                src="images/About_us.jpg"
+                alt="Business Page"
+              />
+
               </div>
 
               <div className="mt-12 lg:mt-0" data-aos="fade-left">
