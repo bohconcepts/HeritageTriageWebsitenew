@@ -22,11 +22,11 @@ import React, { useEffect } from 'react';
         {
           title: "Connect Local Businesses to Global Markets",
           description: "Our services are designed to break down barriers and open doors for your businesses seeking to expand internationally within the African region. With our expert guidance, market insights, and direct connections, your local companies can confidently navigate new markets and thrive on a global scale.",
-          image: "https://images.unsplash.com/photo-1556155016-2670342b0666?auto=format&fit=crop&q=80"
+          image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80"
         },
         {
           title: "Match-Making Services",
-          description: "Facilitate meaningful connections through targeted matchmaking programs that pair your businesses with the right international partners, suppliers, and buyers, tailored trade missions, offering curated networking opportunities, direct meetings, and valuable market insights that drive export growth. Our comprehensive market entry reports provide businesses with the insights they need to understand new markets, assess competition, and develop effective entry strategies.",
+          description: "Facilitate meaningful connections through targeted matchmaking programs that pair your businesses with the right international partners, suppliers, and buyers, tailored trade missions, offering curated networking opportunities, direct meetings, and valuable market insights that drive export growth. Our comprehensive market entry reports provide businesses with the insights they need to understand new markets, assess competition, and develop effective entry strategies.",         
           image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80"
         },
         {
