@@ -17,7 +17,7 @@ import React, { useEffect } from 'react';
               <div className="relative" data-aos="fade-right">
                 <img
                   className="w-full h-[500px] object-contain rounded-xl"
-                  src="src/public/images/About_us.jpg"
+                  src="/src/public/images/About_us.jpg"
                   alt="Business Page"
                 />
               </div>
