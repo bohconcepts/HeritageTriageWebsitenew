@@ -4,18 +4,28 @@ import { Target, Lightbulb, PieChart } from 'lucide-react';
 const priorities = [
   {
     icon: Target,
-    title: 'Identifying Opportunities',
-    description: 'Discover and leverage competitive advantages in your market space.'
+    title: 'Client-Centric Solutions',
+    description: 'Always putting the client’s business goals and outcomes first.'
   },
   {
     icon: Lightbulb,
-    title: 'In-Market Expertise',
-    description: 'Utilize deep market knowledge and industry expertise for optimal results.'
+    title: 'Innovation and Efficiency',
+    description: 'Continuously exploring creative solutions that drive sustainable growth.'
   },
   {
     icon: PieChart,
-    title: 'Capital Allocation',
-    description: 'Optimize resource distribution for maximum business impact and growth.'
+    title: 'Data-Driven Insights',
+    description: 'Leveraging data and analytics to guide decisions and deliver impactful strategies.'
+  },
+  {
+    icon: Lightbulb,
+    title: 'Compliance and Risk Mitigation',
+    description: 'Ensuring that all strategies are aligned with industry regulations, reducing risks for clients and following international host country’s local content and public policy.'
+  },
+  {
+    icon: PieChart,
+    title: 'Long-Term Partnerships',
+    description: 'Moving beyond short-term fixes to build long-lasting, meaningful relationships with clients.'
   }
 ];
 
@@ -24,7 +34,7 @@ const Priorities = () => {
     <section id="priorities" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Strategic Priorities</h2>
+          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">What We Prioritize for Your Success</h2>
           <p className="mt-4 text-xl text-gray-600">
             Focused approaches that drive sustainable growth
           </p>
