@@ -21,6 +21,14 @@ import React, { useState, useEffect } from 'react';
         }
       };
 
+      const handleFdiClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const carouselSection = document.querySelector('#carousel-container');
+        if (carouselSection) {
+          carouselSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
       return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +45,8 @@ import React, { useState, useEffect } from 'react';
               <div className="hidden md:flex items-center space-x-8">
                 <a href="#home" className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>Home</a>
                 <a href="#services" className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>Services</a>
-                <a href="#priorities" className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>Priorities</a>
+                <a href="#priorities" className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>Strategic Focus</a>
+                <a href="#fdi" onClick={handleFdiClick} className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>Foreign Direct Investments</a>
                 <a href="#about" onClick={handleAboutClick} className={`font-light hover:text-blue-600 transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>About</a>
                 <a href="#contact" className={`px-6 py-2 border-2 ${isScrolled ? 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white' : 'border-white text-white hover:bg-white hover:text-gray-900'} transition-colors`}>
                   Contact Us

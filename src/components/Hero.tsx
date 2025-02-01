@@ -16,7 +16,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl" data-aos="fade-right">
           <h1 className="text-6xl font-light text-white mb-6">
-            Strategic Growth & Innovation
+          International Business Expansion
           </h1>
           <p className="text-xl text-gray-300 mb-12 max-w-2xl">
             Empowering businesses globally through strategic consulting, innovative solutions, and sustainable growth strategies.
