@@ -24,7 +24,7 @@ import React, { useEffect } from 'react';
               </div>
 
               <div className="mt-12 lg:mt-0" data-aos="fade-left">
-                <div className="text-base text-blue-600 font-semibold tracking-wide uppercase mb-6">
+                <div className="text-4xl font-bold tracking-wide uppercase mb-6">
                   Our Story
                 </div>
                 <h2 className="text-4xl font-light text-gray-900 mb-8">
