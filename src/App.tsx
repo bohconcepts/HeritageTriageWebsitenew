@@ -65,7 +65,7 @@ function App() {
                 <div id="understanding-industry-trends" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
                 <div className="text-center mb-16">
                   <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Understanding Industry Trends</h2>
-                  <p className="mt-4 text-xl text-gray-600">
+                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
                   Highlights on International Trade, Foreign Direct Invesment and Industry Trends
                   </p>
                 </div>

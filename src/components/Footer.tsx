@@ -9,7 +9,7 @@ import React from 'react';
               <div className="col-span-1 md:col-span-2">
                 <div className="flex items-center">
                   <img
-                    src="public/images/heritage-logo.jpg"
+                    src="images/heritage-logo.jpg"
                     alt="Heritage Triage Logo"
                     className="h-6 w-auto text-blue-500"
                   />

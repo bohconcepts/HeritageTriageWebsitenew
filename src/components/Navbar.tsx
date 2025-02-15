@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <img
-              src="public/images/heritage-logo.jpg"
+              src="images/heritage-logo.jpg"
               alt="Heritage Triage Logo"
               className={`h-8 w-auto ${isScrolled ? 'text-blue-600' : 'text-white'}`}
             />
