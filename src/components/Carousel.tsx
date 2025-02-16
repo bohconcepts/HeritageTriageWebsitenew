@@ -60,8 +60,9 @@ export const Carousel: React.FC<CarouselProps> = ({ items = carouselItems }) => 
   };
 
   return (
-    <div id="understanding-industry-trends" className="pt-20 bg-gray-50">
-     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+    <div id="industry-trends" className="py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold tracking-wide uppercase mb-6">Understanding Industry Trends</h2>
           <p className="text-lg text-gray-600 leading-relaxed">
