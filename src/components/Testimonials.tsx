@@ -3,17 +3,17 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Emily Chen',
-    role: 'CEO, TechStart Inc.',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80',
-    content: 'Heritage Triage transformed our business strategy. Their insights helped us expand into new markets with confidence.',
+    name: 'Pious Ali',
+    role: 'Councilor, Maine - Portland.',
+    image: '/images/Pious.jpeg',
+    content: 'Heritage Triage supported our trade mission to Ghana with an excellent executive delegation support',
     stars: 5
   },
   {
-    name: 'Marcus Rodriguez',
-    role: 'Founder, GreenPath Solutions',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80',
-    content: "The team's dedication to sustainable growth strategies aligned perfectly with our vision. They delivered beyond our expectations.",
+    name: 'Mr. Kwadwo Saka',
+    role: 'C.E.O, Saka Homes Gh Ltd',
+    image: '/images/Saka.jpeg',
+    content: "Heritage Triage transformed our business strategy. Their insights helped us expand into new markets with confidence. Team's dedication to sustainable growth strategies aligned perfectly with our vision. They delivered beyond our expectations.",
     stars: 5
   },
   {
