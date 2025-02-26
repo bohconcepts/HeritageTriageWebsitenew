@@ -11,7 +11,7 @@ const EventCarousel = () => {
     },
     {
       src: '/images/Memphis_Business_Trade.jpeg',
-      link: 'https://forms.gle/tfQnFcUtUg9zrK7x5'
+      // link: 'https://forms.gle/tfQnFcUtUg9zrK7x5'
     }
   ];
 
