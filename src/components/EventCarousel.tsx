@@ -29,12 +29,12 @@ const EventCarousel = () => {
           <h2 className="text-3xl font-semibold text-gray-900">Upcoming Event</h2>
         </div>
 
-        <div className="relative rounded-lg overflow-hidden shadow-xl" style={{ width: '1200px', height: '1200px', margin: '0 auto' }}>
+        <div className="relative rounded-lg overflow-hidden shadow-xl w-full max-w-4xl mx-auto">
           <a href={formLink} target="_blank" rel="noopener noreferrer">
             <img
               src={imageSrc}
               alt="Ghana Immersion & Exploratory Trip"
-              className="w-full h-full object-fit"
+              className="w-full h-auto object-contain"
             />
           </a>
 
