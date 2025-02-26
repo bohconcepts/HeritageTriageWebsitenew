@@ -34,7 +34,7 @@ const EventCarousel = () => {
             <img
               src={imageSrc}
               alt="Ghana Immersion & Exploratory Trip"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-fit"
             />
           </a>
 
