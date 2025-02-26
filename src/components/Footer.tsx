@@ -58,7 +58,7 @@ import React from 'react';
                   <a href="#" className="text-gray-400 hover:text-white">
                     <Linkedin className="h-6 w-6" />
                   </a>
-                  <a href="#" className="text-gray-400 hover:text-white">
+                  <a href="https://www.instagram.com/reel/DGFRL-vJIj2/?igsh=MTQzajE0NmlxZmEycQ==" className="text-gray-400 hover:text-white">
                     <Instagram className="h-6 w-6" />
                   </a>
                 </div>
