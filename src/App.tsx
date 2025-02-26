@@ -11,6 +11,7 @@ import { Carousel } from './components/Carousel';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import About from './components/About';
+import EventCarousel from './components/EventCarousel';
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
                 <Testimonials />
                 <About />
                 <Carousel />
+                <EventCarousel />
                 <ContactForm />
               </>
             } />

@@ -7,6 +7,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <img
           className="w-full h-full object-cover"
+          // src="/images/heritage-new-flyer.jpg.png"
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
           alt="Office background"
         />

@@ -79,6 +79,14 @@ const Navbar = () => {
             >
               About
             </a>
+             <a
+              href="#event"
+              className={`font-light hover:text-blue-600 transition-colors ${
+                isScrolled ? "text-gray-900" : "text-white"
+              }`}
+            >
+              Event
+            </a>
             <a
               href="#contact"
               className={`px-6 py-2 border-2 ${
@@ -140,6 +148,12 @@ const Navbar = () => {
               className="block px-3 py-2 text-gray-900 hover:text-blue-600"
             >
               About
+            </a>
+             <a
+              href="#event"
+              className="block px-3 py-2 text-gray-900 hover:text-blue-600"
+            >
+              Event
             </a>
             <a
               href="#contact"
