@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const EventCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const imageSrc = '/images/heritage-new-flyer.png'; // Replace with a valid image URL
+  const imageSrc = '/images/heritage-new-flyer.png'; 
   const formLink = 'https://forms.gle/tfQnFcUtUg9zrK7x5';
 
   useEffect(() => {
