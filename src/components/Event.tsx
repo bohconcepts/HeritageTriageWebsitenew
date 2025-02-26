@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const EventCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade] = useState(false);
 
   const images = [
     {
@@ -16,34 +15,23 @@ const EventCarousel = () => {
     }
   ];
 
-  // Automatically transition images every 5 seconds
+  // Automatically change images every 45 seconds
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setFade(true);
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        setFade(false);
-      }, 500); // Match the transition duration
-    }, 5000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 45000); // 45 seconds
 
     return () => clearInterval(intervalId);
   }, []);
 
-  // Manually transition with buttons
+  // Go to previous image
   const goToPrevious = () => {
-    setFade(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-      setFade(false);
-    }, 500);
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
   };
 
+  // Go to next image
   const goToNext = () => {
-    setFade(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setFade(false);
-    }, 500);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   return (
@@ -58,7 +46,7 @@ const EventCarousel = () => {
             <img
               src={images[currentIndex].src}
               alt="Event"
-              className={`w-full h-auto object-contain transition-opacity duration-500 ease-in-out transform ${fade ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+              className="w-full h-auto object-contain"
             />
           </a>
 
