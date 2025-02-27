@@ -6,7 +6,7 @@ const EventCarousel = () => {
 
   const images = [
     {
-      src: '/images/heritage-new-flyer.png',
+      src: '/images/heritage-new-flyer.jpg',
       link: 'https://forms.gle/tfQnFcUtUg9zrK7x5'
     },
     {
