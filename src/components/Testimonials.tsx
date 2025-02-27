@@ -4,7 +4,7 @@ import { Star } from 'lucide-react';
 const testimonials = [
   {
     name: 'Pious Ali',
-    role: 'Councilor, Maine - Portland.',
+    role: 'Councilor, Portland, Maine.',
     image: '/images/Pious.jpeg',
     content: 'Heritage Triage supported our trade mission to Ghana with an excellent executive delegation support',
     stars: 5
