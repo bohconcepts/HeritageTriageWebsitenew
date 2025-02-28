@@ -1,27 +1,31 @@
 import React from 'react';
 import { Star } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 const testimonials = [
   {
     name: 'Pious Ali',
     role: 'Councilor, Portland, Maine.',
     image: '/images/Pious.jpeg',
-    content: 'Heritage Triage supported our trade mission to Ghana with an excellent executive delegation support',
-    stars: 5
+    content: 'Heritage Teiage partnered with us to lead our first black elected officials to Ghana with an excellent executive support before, during and after.',
+    stars: 5,
+    linkedin: 'https://www.linkedin.com/in/clrpiousaali/' 
   },
   {
     name: 'Mr. Kwadwo Saka',
     role: 'C.E.O, Saka Homes Gh Ltd',
     image: '/images/Saka.jpeg',
     content: "Heritage Triage transformed our business strategy. Their insights helped us expand into new markets with confidence. Team's dedication to sustainable growth strategies aligned perfectly with our vision. They delivered beyond our expectations.",
-    stars: 5
+    stars: 5,
+    linkedin: 'https://www.linkedin.com/in/ebenezer-kwadwo-saka-addo-mensah-62b58357/' 
   },
   {
     name: 'Sarah Williams',
     role: 'Director, Global Ventures',
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80',
     content: 'Working with Heritage Triage was a game-changer. Their strategic approach to international expansion was invaluable.',
-    stars: 5
+    stars: 5,
+    linkedin: 'https://www.linkedin.com/in/sarah-williams/'
   }
 ];
 
@@ -54,6 +58,15 @@ const Testimonials = () => {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{testimonial.name}</h3>
                     <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    {/* LinkedIn Icon */}
+                    <a
+                      href={testimonial.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 flex items-center mt-1"
+                    >
+                      <Linkedin className="h-5 w-5 mr-1" /> View Profile
+                    </a>
                   </div>
                 </div>
                 <div className="flex mb-4">
