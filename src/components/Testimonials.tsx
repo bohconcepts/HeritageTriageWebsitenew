@@ -25,7 +25,7 @@ const testimonials = [
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80',
     content: 'Working with Heritage Triage was a game-changer. Their strategic approach to international expansion was invaluable.',
     stars: 5,
-    linkedin: 'https://www.linkedin.com/in/sarah-williams/'
+    // linkedin: 'https://www.linkedin.com/in/sarah-williams/'
   }
 ];
 
