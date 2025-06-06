@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.10",
     "aos": "^2.3.4",
     "dotenv": "^16.4.7",
     "lucide-react": "^0.344.0",

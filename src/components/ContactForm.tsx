@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send } from 'lucide-react';
+import { submitContactForm } from '../services/contactService';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -8,10 +9,35 @@ const ContactForm = () => {
     company: '',
     message: ''
   });
+  const [status, setStatus] = useState({
+    submitted: false,
+    submitting: false,
+    error: null as string | null
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setStatus({ submitted: false, submitting: true, error: null });
+    
+    try {
+      await submitContactForm(formData);
+      
+      // Reset form and show success message
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        message: ''
+      });
+      setStatus({ submitted: true, submitting: false, error: null });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus({ 
+        submitted: false, 
+        submitting: false, 
+        error: error instanceof Error ? error.message : 'An error occurred. Please try again.' 
+      });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,65 +61,89 @@ const ContactForm = () => {
         </div>
 
         <div className="max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {status.submitted ? (
+            <div className="text-center p-8 bg-green-50 rounded-lg">
+              <h3 className="text-xl font-medium text-green-800 mb-2">Thank you!</h3>
+              <p className="text-green-700">Your message has been sent successfully.</p>
+              <button 
+                onClick={() => setStatus({ submitted: false, submitting: false, error: null })}
+                className="mt-4 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 rounded"
+              >
+                Send another message
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {status.error && (
+                <div className="p-4 bg-red-50 text-red-700 rounded-lg">
+                  {status.error}
+                </div>
+              )}
+              
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
+                    required
+                    disabled={status.submitting}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
+                    required
+                    disabled={status.submitting}
+                  />
+                </div>
+              </div>
+
               <div>
                 <input
                   type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  value={formData.name}
+                  name="company"
+                  placeholder="Company"
+                  value={formData.company}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
-                  required
+                  disabled={status.submitting}
                 />
               </div>
+
               <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  rows={4}
+                  value={formData.message}
                   onChange={handleChange}
                   className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
                   required
-                />
+                  disabled={status.submitting}
+                ></textarea>
               </div>
-            </div>
 
-            <div>
-              <input
-                type="text"
-                name="company"
-                placeholder="Company"
-                value={formData.company}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
-              />
-            </div>
-
-            <div>
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border-none focus:ring-2 focus:ring-blue-600"
-                required
-              ></textarea>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full py-4 bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center"
-              >
-                Send Message
-                <Send className="ml-2 h-5 w-5" />
-              </button>
-            </div>
-          </form>
+              <div>
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center"
+                  disabled={status.submitting}
+                >
+                  {status.submitting ? 'Sending...' : 'Send Message'}
+                  {!status.submitting && <Send className="ml-2 h-5 w-5" />}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </section>
