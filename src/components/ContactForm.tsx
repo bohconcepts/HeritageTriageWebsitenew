@@ -6,7 +6,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 // Contact information constants
 const CONTACT_INFO = {
   phone: '425-761-1874',
-  email: 'adwoa-adubra@heritagetriage.com',
+  email: 'info@heritagetriage.com',
   address: '27171 SE 25th PL, Sammamish, WA 98075',
   location: { lat: 47.584, lng: -122.034 } // Approximate coordinates for Sammamish
 };
@@ -217,5 +217,5 @@ const ContactForm = () => {
     </section>
   );
 };
-
+//try
 export default ContactForm;
