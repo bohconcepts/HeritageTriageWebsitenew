@@ -1,6 +1,21 @@
-import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+import { Send, Phone, Mail, MapPin } from 'lucide-react';
 import { submitContactForm } from '../services/contactService';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+// Contact information constants
+const CONTACT_INFO = {
+  phone: '425-761-1874',
+  email: 'adwoa-adubra@heritagetriage.com',
+  address: '27171 SE 25th PL, Sammamish, WA 98075',
+  location: { lat: 47.584, lng: -122.034 } // Approximate coordinates for Sammamish
+};
+
+// Map container style
+const mapContainerStyle = {
+  width: '100%',
+  height: '300px'
+};
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -47,6 +62,11 @@ const ContactForm = () => {
     });
   };
 
+  // Map click handler (optional, for future functionality)
+  const onMapClick = useCallback((e: google.maps.MapMouseEvent) => {
+    console.log('Map clicked at:', e.latLng?.lat(), e.latLng?.lng());
+  }, []);
+
   return (
     <section id="contact" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,7 +80,8 @@ const ContactForm = () => {
           </p>
         </div>
 
-        <div className="max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12" data-aos="fade-up" data-aos-delay="100">
+          <div className="space-y-8">
           {status.submitted ? (
             <div className="text-center p-8 bg-green-50 rounded-lg">
               <h3 className="text-xl font-medium text-green-800 mb-2">Thank you!</h3>
@@ -144,6 +165,53 @@ const ContactForm = () => {
               </div>
             </form>
           )}
+          </div>
+          
+          {/* Contact Information and Map */}
+          <div className="bg-gray-50 p-8 rounded-lg shadow-sm">
+            <h3 className="text-2xl font-light text-gray-900 mb-6">Contact Information</h3>
+            
+            <div className="space-y-6 mb-8">
+              <div className="flex items-start">
+                <Phone className="h-6 w-6 text-blue-600 mr-4 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Phone</p>
+                  <p className="text-lg font-medium">{CONTACT_INFO.phone}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <Mail className="h-6 w-6 text-blue-600 mr-4 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Email</p>
+                  <p className="text-lg font-medium">{CONTACT_INFO.email}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <MapPin className="h-6 w-6 text-blue-600 mr-4 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Address</p>
+                  <p className="text-lg font-medium">{CONTACT_INFO.address}</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Google Map */}
+            <div className="rounded-lg overflow-hidden shadow-sm">
+              <LoadScript googleMapsApiKey="AIzaSyASL_O1K1mfWzGvsgaWDefebx_lFHI51oU" loadingElement={<div className="h-[300px] bg-gray-100 flex items-center justify-center">Loading map...</div>}>
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={CONTACT_INFO.location}
+                  zoom={14}
+                  onClick={onMapClick}
+                >
+                  <Marker position={CONTACT_INFO.location} />
+                </GoogleMap>
+              </LoadScript>
+              <p className="text-xs text-gray-500 mt-2 text-center">Map data ©2025 Google</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
