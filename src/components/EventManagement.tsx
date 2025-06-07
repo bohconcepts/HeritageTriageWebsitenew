@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   getAllEvents, 
   createEvent, 
@@ -8,7 +8,9 @@ import {
 } from '../services/eventService';
 import { uploadFile, deleteFile } from '../services/storageService';
 import { Event } from '../lib/types';
-import { ArrowUp, ArrowDown, Edit, Trash2, Plus, X, Check, Upload } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import EventForm from './EventForm';
+import EventList from './EventList';
 
 const EventManagement: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
