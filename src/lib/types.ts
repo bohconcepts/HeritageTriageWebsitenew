@@ -4,6 +4,7 @@
 export interface Event {
   id?: string;
   image_url: string;
+  video_url?: string;
   registration_link?: string;
   is_active: boolean;
   display_order: number;
