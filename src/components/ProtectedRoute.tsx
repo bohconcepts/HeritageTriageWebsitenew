@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { isAuthenticated } from '../services/authService';
 
-const ProtectedRoute: React.FC = () => {
+interface ProtectedRouteProps {
+  redirectTo: string;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ redirectTo }) => {
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const auth = await isAuthenticated();
-        setAuthenticated(auth);
+        const isAuth = await isAuthenticated();
+        setAuthenticated(isAuth);
       } catch (error) {
         console.error('Auth check error:', error);
         setAuthenticated(false);
@@ -30,7 +35,7 @@ const ProtectedRoute: React.FC = () => {
     );
   }
 
-  return authenticated ? <Outlet /> : <Navigate to="/admin/login" />;
+  return authenticated ? <Outlet /> : <Navigate to={redirectTo} state={{ from: location }} replace />;
 };
 
 export default ProtectedRoute;

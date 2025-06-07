@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
@@ -89,14 +89,22 @@ const Navbar = () => {
             </a>
             <a
               href="#contact"
+              className={`font-light hover:text-blue-600 transition-colors ${
+                isScrolled ? "text-gray-900" : "text-white"
+              }`}
+            >
+              Contact Us
+            </a>
+            {/* <a
+              href="/login"
               className={`px-6 py-2 border-2 ${
                 isScrolled
                   ? "border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                   : "border-white text-white hover:bg-white hover:text-gray-900"
               } transition-colors`}
             >
-              Contact Us
-            </a>
+              Login / Sign Up
+            </a> */}
           </div>
 
           <div className="md:hidden flex items-center">
