@@ -17,6 +17,8 @@ import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import ConfirmEmail from './components/ConfirmEmail';
 import ResetPassword from './components/ResetPassword';
+//import SignupForm from './components/SignupForm';
+
 
 function App() {
   useEffect(() => {
@@ -48,7 +50,7 @@ function App() {
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute redirectTo="/admin/login" />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
             </Route>
             

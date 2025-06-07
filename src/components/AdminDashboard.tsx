@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { getAllContacts, updateContact, deleteContact } from '../services/contactService';
-import { signOut } from '../services/authService';
+import LogoutButton from './LogoutButton';
 import { ContactFormData } from '../lib/supabase';
 import UserManagement from './UserManagement';
 import UserProfile from './UserProfile';
+import EventManagement from './EventManagement';
 
 const AdminDashboard: React.FC = () => {
   const [contacts, setContacts] = useState<ContactFormData[]>([]);
@@ -12,8 +12,7 @@ const AdminDashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [editingContact, setEditingContact] = useState<ContactFormData | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [activeTab, setActiveTab] = useState<'contacts' | 'users' | 'profile'>('contacts');
-  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<'contacts' | 'users' | 'profile' | 'events'>('contacts');
 
   // Fetch all contacts on component mount
   useEffect(() => {
@@ -34,14 +33,7 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut();
-      navigate('/admin/login');
-    } catch (err) {
-      console.error('Logout error:', err);
-    }
-  };
+
 
   const handleStatusChange = async (id: string, status: string) => {
     try {
@@ -114,12 +106,7 @@ const AdminDashboard: React.FC = () => {
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-gray-600">Welcome, Admin</span>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-150"
-            >
-              Logout
-            </button>
+            <LogoutButton redirectUrl="/admin/login" />
           </div>
         </div>
       </header>
@@ -135,7 +122,15 @@ const AdminDashboard: React.FC = () => {
               ? 'border-blue-500 text-blue-600' 
               : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
           >
-            Contact Submissions
+            Contacts
+          </button>
+          <button
+            onClick={() => setActiveTab('events')}
+            className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'events' 
+              ? 'border-blue-500 text-blue-600' 
+              : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+          >
+            Events
           </button>
           <button
             onClick={() => setActiveTab('users')}
@@ -268,8 +263,8 @@ const AdminDashboard: React.FC = () => {
         </>
       )}
       
+      {activeTab === 'events' && <EventManagement />}
       {activeTab === 'users' && <UserManagement />}
-      
       {activeTab === 'profile' && <UserProfile />}
 
       {editingContact && (

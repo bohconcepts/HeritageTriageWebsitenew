@@ -17,7 +17,6 @@ const UserProfile: React.FC = () => {
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
-    currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   });
@@ -112,17 +111,7 @@ const UserProfile: React.FC = () => {
     }
 
     try {
-      // First verify the current password
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: user?.email || '',
-        password: formData.currentPassword,
-      });
-
-      if (signInError) {
-        throw new Error('Current password is incorrect');
-      }
-
-      // Then update the password
+      // Update the password directly without requiring current password verification
       const { error } = await supabase.auth.updateUser({
         password: formData.newPassword,
       });
@@ -134,7 +123,6 @@ const UserProfile: React.FC = () => {
       // Clear password fields
       setFormData({
         ...formData,
-        currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       });
@@ -224,20 +212,7 @@ const UserProfile: React.FC = () => {
       <div className="px-4 py-5 sm:p-6 border-t border-gray-200">
         <h4 className="text-md font-medium text-gray-900 mb-4">Change Password</h4>
         <form onSubmit={updatePassword} className="space-y-4">
-          <div>
-            <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700">
-              Current Password
-            </label>
-            <input
-              type="password"
-              name="currentPassword"
-              id="currentPassword"
-              value={formData.currentPassword}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-          </div>
+
 
           <div>
             <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
