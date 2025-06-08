@@ -1,0 +1,19 @@
+[build]
+  base = "/client"
+  command = "cd client && npm install && npm run build"
+  publish = "/client/dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  CI = "true"
+  NODE_ENV = "production"
+  VITE_API_URL = "https://api.bridgepointstrategies.com"
+  VITE_PUBLIC_PATH = "/"
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
