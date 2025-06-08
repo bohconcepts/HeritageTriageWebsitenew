@@ -61,13 +61,32 @@ export const createEvent = async (event: Omit<Event, 'id' | 'created_at'>): Prom
 
 // Update an existing event
 export const updateEvent = async (id: string, event: Partial<Event>): Promise<Event> => {
+  console.log(`Attempting to update event with ID: ${id}`);
+  
+  // First check if the event exists
+  const checkResult = await adminSupabase
+    .from('events')
+    .select('id')
+    .eq('id', id);
+    
+  if (checkResult.error) {
+    console.error('Error checking if event exists:', checkResult.error);
+    throw new Error(`Failed to check if event exists: ${checkResult.error.message}`);
+  }
+  
+  if (!checkResult.data || checkResult.data.length === 0) {
+    console.error(`Event with ID ${id} not found in database`);
+    throw new Error(`Event with ID ${id} not found`);
+  }
+  
+  console.log(`Event with ID ${id} found, proceeding with update`);
+  
   // Try with admin client first
   let result = await adminSupabase
     .from('events')
     .update(event)
     .eq('id', id)
-    .select()
-    .single();
+    .select();
   
   // If that fails, try with regular client
   if (result.error && result.error.code === '42501') { // RLS policy violation
@@ -76,25 +95,33 @@ export const updateEvent = async (id: string, event: Partial<Event>): Promise<Ev
       .from('events')
       .update(event)
       .eq('id', id)
-      .select()
-      .single();
+      .select();
   }
   
   if (result.error) {
     console.error('Error updating event:', result.error);
-    throw new Error(result.error.message);
+    throw new Error(`Failed to update event: ${result.error.message}`);
   }
   
-  return result.data;
+  if (!result.data || result.data.length === 0) {
+    console.error(`No rows updated for event ID: ${id}`);
+    throw new Error(`Event with ID ${id} could not be updated`);
+  }
+  
+  console.log(`Successfully updated event with ID: ${id}`);
+  return result.data[0];
 };
 
 // Delete an event
 export const deleteEvent = async (id: string): Promise<void> => {
+  console.log(`Attempting to delete event with ID: ${id} from database`);
+  
   // Try with admin client first
   let result = await adminSupabase
     .from('events')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .select(); // Add select to get the deleted rows
   
   // If that fails, try with regular client
   if (result.error && result.error.code === '42501') { // RLS policy violation
@@ -102,28 +129,63 @@ export const deleteEvent = async (id: string): Promise<void> => {
     result = await supabase
       .from('events')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .select(); // Add select to get the deleted rows
   }
   
   if (result.error) {
     console.error('Error deleting event:', result.error);
-    throw new Error(result.error.message);
+    throw new Error(`Database error: ${result.error.message}`);
   }
+  
+  // Check if any rows were actually deleted
+  if (!result.data || result.data.length === 0) {
+    console.error(`No rows deleted for event ID: ${id}`);
+    throw new Error(`Event with ID ${id} not found or could not be deleted`);
+  }
+  
+  console.log(`Successfully deleted ${result.data.length} row(s) for event ID: ${id}`);
 };
 
 // Update event display order
 export const updateEventOrder = async (id: string, newOrder: number): Promise<Event> => {
-  const { data, error } = await adminSupabase
+  console.log(`Attempting to update order for event with ID: ${id} to ${newOrder}`);
+  
+  // First check if the event exists
+  const checkResult = await adminSupabase
+    .from('events')
+    .select('id')
+    .eq('id', id);
+    
+  if (checkResult.error) {
+    console.error('Error checking if event exists:', checkResult.error);
+    throw new Error(`Failed to check if event exists: ${checkResult.error.message}`);
+  }
+  
+  if (!checkResult.data || checkResult.data.length === 0) {
+    console.error(`Event with ID ${id} not found in database`);
+    throw new Error(`Event with ID ${id} not found`);
+  }
+  
+  console.log(`Event with ID ${id} found, proceeding with order update`);
+  
+  // Try with admin client first
+  const result = await adminSupabase
     .from('events')
     .update({ display_order: newOrder })
     .eq('id', id)
-    .select()
-    .single();
+    .select();
   
-  if (error) {
-    console.error('Error updating event order:', error);
-    throw new Error(error.message);
+  if (result.error) {
+    console.error('Error updating event order:', result.error);
+    throw new Error(`Failed to update event order: ${result.error.message}`);
   }
   
-  return data;
+  if (!result.data || result.data.length === 0) {
+    console.error(`No rows updated for event order, ID: ${id}`);
+    throw new Error(`Event with ID ${id} order could not be updated`);
+  }
+  
+  console.log(`Successfully updated order for event with ID: ${id} to ${newOrder}`);
+  return result.data[0];
 };

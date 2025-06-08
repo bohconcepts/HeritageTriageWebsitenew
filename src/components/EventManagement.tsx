@@ -154,33 +154,67 @@ const EventManagement: React.FC = () => {
         // Get the event to delete so we can clean up its files
         const eventToDelete = events.find(event => event.id === id);
         
-        // Delete the event from the database
-        await deleteEvent(id);
-        
-        // Clean up associated files
-        if (eventToDelete) {
-          if (eventToDelete.image_url) {
-            try {
-              await deleteFile(eventToDelete.image_url, 'images');
-            } catch (err) {
-              console.error('Error deleting image file (non-critical):', err);
-            }
-          }
-          
-          if (eventToDelete.video_url) {
-            try {
-              await deleteFile(eventToDelete.video_url, 'videos');
-            } catch (err) {
-              console.error('Error deleting video file (non-critical):', err);
-            }
-          }
+        if (!eventToDelete) {
+          console.error(`Event with ID ${id} not found in local state`);
+          setError('Failed to delete event: Event not found in local state');
+          setLoading(false);
+          return;
         }
         
-        setEvents(events.filter(event => event.id !== id));
+        console.log(`Attempting to delete event with ID: ${id}`);
+        
+        // Delete the event from the database - this will throw an error if deletion fails
+        await deleteEvent(id);
+        // If we reach here, deletion was successful
+        
+        // Clean up associated files
+        const fileDeletePromises = [];
+        
+        // Handle image deletion
+        if (eventToDelete.image_url) {
+          console.log(`Attempting to delete image: ${eventToDelete.image_url}`);
+          const imagePromise = deleteFile(eventToDelete.image_url, 'images')
+            .then(() => console.log(`Successfully deleted image: ${eventToDelete.image_url}`))
+            .catch(err => {
+              console.error(`Error deleting image file: ${eventToDelete.image_url}`, err);
+              // Non-critical error, don't throw
+            });
+          fileDeletePromises.push(imagePromise);
+        }
+        
+        // Handle video deletion
+        if (eventToDelete.video_url) {
+          console.log(`Attempting to delete video: ${eventToDelete.video_url}`);
+          const videoPromise = deleteFile(eventToDelete.video_url, 'videos')
+            .then(() => console.log(`Successfully deleted video: ${eventToDelete.video_url}`))
+            .catch(err => {
+              console.error(`Error deleting video file: ${eventToDelete.video_url}`, err);
+              // Non-critical error, don't throw
+            });
+          fileDeletePromises.push(videoPromise);
+        }
+        
+        // Wait for all file deletions to complete (or fail)
+        await Promise.allSettled(fileDeletePromises);
+        
+        // Update local state - use a callback to ensure we're working with the latest state
+        setEvents(prevEvents => {
+          const updatedEvents = prevEvents.filter(event => event.id !== id);
+          console.log(`Updated events list, removed event with ID ${id}. New count: ${updatedEvents.length}`);
+          return updatedEvents;
+        });
+        
+        // Force a refresh of events from the database to ensure UI is in sync
+        fetchEvents();
+        
         setSuccess('Event deleted successfully!');
+        console.log(`Event with ID ${id} completely deleted`);
       } catch (err) {
-        console.error('Error deleting event:', err);
-        setError('Failed to delete event. Please try again.');
+        console.error(`Critical error deleting event ${id}:`, err);
+        setError(`Failed to delete event: ${err instanceof Error ? err.message : 'Unknown error'}`);
+        
+        // If there was an error, refresh events from the database to ensure UI is in sync
+        fetchEvents();
       } finally {
         setLoading(false);
       }
