@@ -1,18 +1,14 @@
+# netlify.toml
+# This file tells Netlify how to handle routes for a single-page application
+
 [build]
-  base = "/client"
-  command = "cd client && npm install && npm run build"
-  publish = "/client/dist"
+  # Directory to publish (relative to root of your repo)
+  publish = "dist"
+  # Default build command
+  command = "npm run build"
 
-[build.environment]
-  NODE_VERSION = "18"
-  CI = "true"
-  NODE_ENV = "production"
-  VITE_API_URL = "https://api.bridgepointstrategies.com"
-  VITE_PUBLIC_PATH = "/"
-
-[context.production.environment]
-  NODE_ENV = "production"
-
+# The following redirect is intended for use with single-page applications (SPA)
+# where the app handles routing internally.
 [[redirects]]
   from = "/*"
   to = "/index.html"
