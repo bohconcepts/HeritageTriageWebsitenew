@@ -44,6 +44,7 @@ const EventManagement: React.FC = () => {
     formData: Omit<Event, 'id' | 'created_at'>, 
     mediaFiles: { image?: File, video?: File }
   ) => {
+    console.log('EventManagement handleSubmit called with:', { formData, mediaFiles });
     setLoading(true);
     setError(null);
     setSuccess(null);
@@ -68,10 +69,24 @@ const EventManagement: React.FC = () => {
       // Handle video upload if provided
       let finalVideoUrl = formData.video_url;
       if (mediaFiles.video) {
+        console.log('Video file to upload:', { 
+          name: mediaFiles.video.name, 
+          type: mediaFiles.video.type, 
+          size: mediaFiles.video.size 
+        });
+        
         try {
+          console.log('Starting video upload to bucket: videos');
           const uploadedUrl = await uploadFile(mediaFiles.video, 'videos');
+          console.log('Video upload successful, URL:', uploadedUrl);
+          
           if (uploadedUrl) {
             finalVideoUrl = uploadedUrl;
+          } else {
+            console.error('Video upload completed but no URL was returned');
+            setError('Failed to get video URL. Please try again.');
+            setLoading(false);
+            return;
           }
         } catch (uploadErr) {
           console.error('Error uploading video:', uploadErr);
@@ -121,13 +136,23 @@ const EventManagement: React.FC = () => {
           displayOrder = maxOrder + 1;
         }
         
-        await createEvent({ 
+        const eventData = { 
           ...formData, 
           image_url: finalImageUrl,
           video_url: finalVideoUrl,
           display_order: displayOrder
-        });
-        setSuccess('Event created successfully!');
+        };
+        
+        console.log('Creating new event with data:', eventData);
+        
+        try {
+          const createdEvent = await createEvent(eventData);
+          console.log('Event created successfully:', createdEvent);
+          setSuccess('Event created successfully!');
+        } catch (createErr) {
+          console.error('Error in createEvent:', createErr);
+          throw createErr;
+        }
       }
       
       // Refresh events and close modal

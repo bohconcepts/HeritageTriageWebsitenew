@@ -34,7 +34,16 @@ export const getActiveEvents = async (): Promise<Event[]> => {
 
 // Create a new event
 export const createEvent = async (event: Omit<Event, 'id' | 'created_at'>): Promise<Event> => {
+  console.log('createEvent called with data:', event);
+  
+  // Validate required fields
+  if (!event.title) {
+    console.error('Event title is required');
+    throw new Error('Event title is required');
+  }
+  
   // Try with admin client first (should have higher privileges)
+  console.log('Attempting to create event with admin client');
   let result = await adminSupabase
     .from('events')
     .insert([event])
@@ -42,20 +51,31 @@ export const createEvent = async (event: Omit<Event, 'id' | 'created_at'>): Prom
     .single();
   
   // If that fails, try with regular client
-  if (result.error && result.error.code === '42501') { // RLS policy violation
-    console.log('Admin client failed due to RLS, trying with regular client');
-    result = await supabase
-      .from('events')
-      .insert([event])
-      .select()
-      .single();
+  if (result.error) {
+    console.log('Admin client failed with error:', result.error);
+    
+    if (result.error.code === '42501') { // RLS policy violation
+      console.log('Admin client failed due to RLS, trying with regular client');
+      result = await supabase
+        .from('events')
+        .insert([event])
+        .select()
+        .single();
+    } else if (result.error.code === '23502') { // not-null violation
+      console.error('Not-null violation. Missing required fields:', result.error.details);
+      throw new Error(`Database error: Missing required fields - ${result.error.details}`);
+    } else if (result.error.code === '23505') { // unique violation
+      console.error('Unique constraint violation:', result.error.details);
+      throw new Error(`Database error: Duplicate entry - ${result.error.details}`);
+    }
   }
   
   if (result.error) {
     console.error('Error creating event:', result.error);
-    throw new Error(result.error.message);
+    throw new Error(`Failed to create event: ${result.error.message}`);
   }
   
+  console.log('Event created successfully:', result.data);
   return result.data;
 };
 

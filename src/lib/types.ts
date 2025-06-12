@@ -3,6 +3,8 @@
 // Event type definition based on the database schema
 export interface Event {
   id?: string;
+  title: string;
+  description?: string;
   image_url: string;
   video_url?: string;
   registration_link?: string;
