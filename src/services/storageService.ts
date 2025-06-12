@@ -7,18 +7,46 @@ export const uploadFile = async (
   bucket: string = 'images',
   folder: string = ''
 ): Promise<string> => {
+  console.log(`Starting upload for file: ${file.name} to bucket: ${bucket}`);
+  console.log(`File details: type=${file.type}, size=${file.size} bytes`);
+  
   try {
     // Create a unique file name to prevent collisions
     const fileExt = file.name.split('.').pop();
     const fileName = `${uuidv4()}.${fileExt}`;
     const filePath = folder ? `${folder}/${fileName}` : fileName;
+    console.log(`Generated file path: ${filePath}`);
+    
+    // Check if the bucket exists, create it if it doesn't
+    try {
+      const { data: buckets } = await supabase.storage.listBuckets();
+      const bucketExists = buckets?.some(b => b.name === bucket);
+      
+      if (!bucketExists) {
+        console.log(`Bucket '${bucket}' does not exist, attempting to create it`);
+        const { error } = await adminSupabase.storage.createBucket(bucket, {
+          public: true,
+          fileSizeLimit: 100 * 1024 * 1024, // 100MB limit for videos
+        });
+        
+        if (error) {
+          console.error(`Failed to create bucket '${bucket}':`, error);
+        } else {
+          console.log(`Successfully created bucket '${bucket}'`);
+        }
+      }
+    } catch (bucketErr) {
+      console.error('Error checking/creating bucket:', bucketErr);
+    }
 
     // Try with regular client first (for authenticated users)
+    console.log('Attempting upload with regular client');
     let uploadResult = await supabase.storage
       .from(bucket)
       .upload(filePath, file, {
         cacheControl: '3600',
-        upsert: false,
+        upsert: true, // Changed to true to overwrite existing files with same name
+        contentType: file.type, // Explicitly set content type
       });
       
     // If that fails, try with admin client
@@ -28,21 +56,28 @@ export const uploadFile = async (
         .from(bucket)
         .upload(filePath, file, {
           cacheControl: '3600',
-          upsert: false,
+          upsert: true, // Changed to true to overwrite existing files with same name
+          contentType: file.type, // Explicitly set content type
         });
     }
     
     // Check for errors after both attempts
     if (uploadResult.error) {
       console.error('Error uploading file:', uploadResult.error);
-      throw new Error(uploadResult.error.message);
+      throw new Error(`Upload failed: ${uploadResult.error.message}`);
     }
     
+    console.log('File uploaded successfully, getting public URL');
     // Get the public URL for the file
     const { data: urlData } = supabase.storage
       .from(bucket)
       .getPublicUrl(uploadResult.data.path);
     
+    if (!urlData || !urlData.publicUrl) {
+      throw new Error('Failed to get public URL for uploaded file');
+    }
+    
+    console.log('Public URL generated:', urlData.publicUrl);
     return urlData.publicUrl;
   } catch (error) {
     console.error('Error in uploadFile:', error);

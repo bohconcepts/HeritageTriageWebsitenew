@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Event } from '../lib/types';
-import { uploadFile, deleteFile } from '../services/storageService';
-import { Upload, X } from 'lucide-react';
+import { Upload } from 'lucide-react';
 
 interface EventFormProps {
   isEditing: boolean;
@@ -17,6 +16,8 @@ const EventForm: React.FC<EventFormProps> = ({
   onCancel
 }) => {
   const [formData, setFormData] = useState<Omit<Event, 'id' | 'created_at'>>({
+    title: '',
+    description: '',
     image_url: '',
     video_url: '',
     registration_link: '',
@@ -37,6 +38,8 @@ const EventForm: React.FC<EventFormProps> = ({
   useEffect(() => {
     if (currentEvent) {
       setFormData({
+        title: currentEvent.title || '',
+        description: currentEvent.description || '',
         image_url: currentEvent.image_url || '',
         video_url: currentEvent.video_url || '',
         registration_link: currentEvent.registration_link || '',
@@ -56,17 +59,20 @@ const EventForm: React.FC<EventFormProps> = ({
       const files = (e.target as HTMLInputElement).files;
       if (files && files.length > 0) {
         const file = files[0];
+        console.log(`File selected for ${name}:`, { name: file.name, type: file.type, size: file.size });
         
         if (name === 'image_upload') {
           setImageFile(file);
           // Create a preview URL for the image
           const previewUrl = URL.createObjectURL(file);
           setImagePreview(previewUrl);
+          console.log('Image preview created:', previewUrl);
         } else if (name === 'video_upload') {
           setVideoFile(file);
           // Create a preview URL for the video
           const previewUrl = URL.createObjectURL(file);
           setVideoPreview(previewUrl);
+          console.log('Video preview created:', previewUrl);
         }
       }
     } else {
@@ -77,13 +83,21 @@ const EventForm: React.FC<EventFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate that we have an image (either a new upload or existing URL when editing)
+    // Validate required fields
+    if (!formData.title.trim()) {
+      alert('Please enter an event title');
+      return;
+    }
+    
+    // Validate that we have an image for new events (either a new upload or existing URL)
     if (!imageFile && !formData.image_url && !isEditing) {
       alert('Please select an image to upload');
       return;
     }
 
     setUploadingMedia(true);
+    console.log('Submitting form data:', formData);
+    console.log('Media files:', { image: imageFile, video: videoFile });
     
     try {
       await onSubmit(formData, { 
@@ -97,26 +111,60 @@ const EventForm: React.FC<EventFormProps> = ({
     }
   };
 
-  const clearPreviews = () => {
-    if (imagePreview) {
-      URL.revokeObjectURL(imagePreview);
-      setImagePreview('');
-    }
-    if (videoPreview) {
-      URL.revokeObjectURL(videoPreview);
-      setVideoPreview('');
-    }
-  };
-
   // Clean up object URLs when component unmounts
   useEffect(() => {
+    // Define clearPreviews inside useEffect to avoid dependency issues
+    const clearPreviews = () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+        setImagePreview('');
+      }
+      if (videoPreview) {
+        URL.revokeObjectURL(videoPreview);
+        setVideoPreview('');
+      }
+    };
+    
     return () => {
       clearPreviews();
     };
-  }, []);
+  }, [imagePreview, videoPreview]);
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Title */}
+      <div className="mb-4">
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          Event Title *
+        </label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={formData.title}
+          onChange={handleInputChange}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter event title"
+          required
+        />
+      </div>
+
+      {/* Description */}
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+          Event Description
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description || ''}
+          onChange={handleInputChange}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter event description"
+          rows={4}
+        />
+      </div>
+
       {/* Image Upload */}
       <div className="mb-4">
         <label htmlFor="image_upload" className="block text-sm font-medium text-gray-700 mb-1">
@@ -131,7 +179,7 @@ const EventForm: React.FC<EventFormProps> = ({
             onChange={handleInputChange}
             ref={imageInputRef}
             className="hidden"
-            required={isEditing ? false : true}
+            // Remove required attribute from hidden input
           />
           <button
             type="button"

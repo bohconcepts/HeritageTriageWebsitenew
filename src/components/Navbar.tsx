@@ -56,6 +56,14 @@ const Navbar = () => {
               Services
             </a>
             <a
+              href="#market-insights"
+              className={`font-light hover:text-blue-600 transition-colors ${
+                isScrolled ? "text-gray-900" : "text-white"
+              }`}
+            >
+              Market Insights
+            </a>
+            <a
               href="#priorities"
               className={`font-light hover:text-blue-600 transition-colors ${
                 isScrolled ? "text-gray-900" : "text-white"
@@ -64,12 +72,12 @@ const Navbar = () => {
               Strategic Focus
             </a>
             <a
-              href="#understanding-industry-trends"
+              href="#event"
               className={`font-light hover:text-blue-600 transition-colors ${
                 isScrolled ? "text-gray-900" : "text-white"
               }`}
             >
-              Foreign Direct Investments
+              Event
             </a>
             <a
               href="#about"
@@ -78,14 +86,6 @@ const Navbar = () => {
               }`}
             >
               About
-            </a>
-             <a
-              href="#event"
-              className={`font-light hover:text-blue-600 transition-colors ${
-                isScrolled ? "text-gray-900" : "text-white"
-              }`}
-            >
-              Event
             </a>
             <a
               href="#contact"
@@ -140,28 +140,28 @@ const Navbar = () => {
               Services
             </a>
             <a
+              href="#market-insights"
+              className="block px-3 py-2 text-gray-900 hover:text-blue-600"
+            >
+              Market Insights
+            </a>
+            <a
               href="#priorities"
               className="block px-3 py-2 text-gray-900 hover:text-blue-600"
             >
-              Priorities
+              Strategic Focus
             </a>
             <a
-              href="#understanding-industry-trends"
+              href="#event"
               className="block px-3 py-2 text-gray-900 hover:text-blue-600"
             >
-              Foreign Direct Investment
+              Event
             </a>
             <a
               href="#about"
               className="block px-3 py-2 text-gray-900 hover:text-blue-600"
             >
               About
-            </a>
-             <a
-              href="#event"
-              className="block px-3 py-2 text-gray-900 hover:text-blue-600"
-            >
-              Event
             </a>
             <a
               href="#contact"

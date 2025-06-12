@@ -20,13 +20,14 @@ const testimonials = [
     linkedin: 'https://www.linkedin.com/in/ebenezer-kwadwo-saka-addo-mensah-62b58357/' 
   },
   {
-    name: 'Sarah Williams',
-    role: 'Director, Global Ventures',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80',
-    content: 'Working with Heritage Triage was a game-changer. Their strategic approach to international expansion was invaluable.',
+    name: 'Kelvis Quaynor',
+    role: 'President and Founder, BOH Concepts',
+    image: '/images/kelvis.jpeg',
+    content: '“Heritage Triage was instrumental in shaping our GTM strategy for Ghana. Their team opened doors to government officials and industry stakeholders we wouldn’t have reached on our own. Their expertise gave us the confidence and credibility to move forward.”',
     stars: 5,
-    // linkedin: 'https://www.linkedin.com/in/sarah-williams/'
+    // linkedin: 'https://www.linkedin.com/in/kelvis-quaynor/'
   }
+  
 ];
 
 const Testimonials = () => {
