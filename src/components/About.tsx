@@ -18,15 +18,15 @@ const About = () => {
           <div className="w-24 h-1 bg-amber-500 mx-auto mt-4 mb-8"></div>
         </div>
         
-        <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-start">
-          <div className="relative" data-aos="fade-right">
+        <div className="flow-root">
+          <div className="float-left mr-8 mb-6 w-full sm:w-1/2 md:w-2/5 lg:w-1/3" data-aos="fade-right">
             <img
               className="w-full h-auto object-cover rounded-xl shadow-lg"
               src="/images/ceo.jpeg"
               alt="Rita Adwoa Adubra Asante - Founder & CEO"
             />
           </div>
-          <div className="mt-12 lg:mt-0" data-aos="fade-left">
+          <div data-aos="fade-left">
             <div className="text-3xl font-bold tracking-wide mb-2">
               About Rita Adwoa Adubra Asante
             </div>
