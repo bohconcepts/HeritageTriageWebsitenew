@@ -7,7 +7,7 @@ import Priorities from './components/Priorities';
 import Testimonials from './components/Testimonials';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import { Carousel } from './components/Carousel';
+// Carousel component removed as it doesn't exist
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import About from './components/About';
@@ -42,7 +42,6 @@ function App() {
                 <Priorities />
                 <Testimonials />
                 <About />
-                <Carousel />
                 <EventCarousel />
                 <ContactForm />
               </>
