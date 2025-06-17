@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import AOS from 'aos';
 
 const About = () => {
@@ -28,53 +28,53 @@ const About = () => {
           </div>
           <div className="mt-12 lg:mt-0" data-aos="fade-left">
             <div className="text-3xl font-bold tracking-wide mb-2">
-              Meet Rita Adwoa Adubra Asante
+              About Rita Adwoa Adubra Asante
             </div>
             <h2 className="text-xl font-medium text-gray-700 mb-6">
-              Founder & Principal Consultant, Heritage Triage LLC
+              Founder & Principal, Heritage Triage LLC
             </h2>
             
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Her story doesn't begin in a boardroom but in Accra, Ghana, where Rita learned the power of resilience, hard work, and service early in life. Raised by a widowed mother and guided by purpose, she grew up watching business, diplomacy, and community converge at kitchen tables and local trade fairs. It wasn't long before Rita realized her calling: to build bridges between global markets and local potential.
+                Rita Adwoa Adubra Asante is a global strategist and commercial diplomacy expert with over a decade of experience helping companies expand across borders and industries. As the founder of Heritage Triage LLC, she leads a boutique consulting firm dedicated to empowering businesses, governments, and investors to navigate new markets, shape policy environments, and unlock sustainable growth.
               </p>
               
               <p>
-                Her journey took her from Ghana to Washington, D.C., where she spent nearly a decade with the U.S. Department of Commerce, U.S. Commercial Service helping over 500 U.S. businesses expand into Sub-Saharan Africa. Rita quickly became a trusted advisor, facilitating trade missions, structuring public-private partnerships, and navigating the complex terrain of policy and commerce. Along the way, she helped iconic brands like Pizza Hut, Cisco, and Zipline take root in new markets.
+                Her professional journey spans public, private, and regulatory sectors, giving her a unique ability to bridge the language of business with the demands of government. Early in her career, Rita worked with the Ghana Civil Aviation Authority, where she supported regulatory modernization and stakeholder engagement for one of West Africa's most vital aviation sectors. She later joined PwC Ghana, where she contributed to strategic advisory and operational improvement projects for multinational clients—gaining firsthand experience in corporate governance, risk, and high-performance delivery under pressure.
               </p>
               
               <p>
-                But she wasn't finished yet.
+                Rita spent nearly a decade with the U.S. Department of Commerce, U.S. Commercial Service, where she advised more than 500 U.S. companies seeking growth across Sub-Saharan Africa. From organizing presidential-level trade missions to launching public-private investment platforms, she played a key role in helping brands like Pizza Hut, Cisco, and Zipline establish footholds in new markets. Her focus: delivering results through trusted partnerships, strategic storytelling, and policy navigation.
               </p>
               
               <p>
-                In 2024, Rita launched Heritage Triage LLC; a boutique consulting firm rooted in one powerful idea: strategy should be accessible, practical, and transformational. Built during late-night study sessions and early-morning pitch calls, Heritage Triage was born out of grit, vision, and Rita's unwavering belief that businesses can and should thrive across borders.
-              </p>
-              
-              <p>
-                Today, she leads the firm with a bold mission:
+                In 2024, she founded Heritage Triage LLC with a powerful belief:
                 <br />
-                <span className="italic font-medium">To empower companies, governments, and entrepreneurs to enter new markets, shape policy narratives, and unlock sustainable growth.</span>
+                <span className="italic font-medium">Strategy should be clear, actionable, and transformational.</span>
               </p>
               
               <p>
-                From advising U.S. clients on expansion into Africa, to helping African firms understand global investment pathways, Rita remains deeply committed to commercial diplomacy, economic storytelling, and inclusive development.
-              </p>
-              
-              <p>
-                But ask her what makes her proudest, and she'll say this:
-              </p>
-              
-              <p className="italic font-medium">
-                "We don't just deliver strategy. We build a legacy; one client, one market, one milestone at a time."
-              </p>
-              
-              <p>
-                When she's not advising clients or moderating trade panels, Rita is writing Adubra's Journey, a memoir chronicling her rise from modest beginnings to global boardrooms and dreaming up new ways to help women and small businesses shape the global economy.
+                Heritage Triage specializes in market expansion, policy strategy, and investment readiness consulting, serving clients in the U.S., Africa, and the Middle East. Whether advising U.S. firms entering African markets or supporting African companies in structuring international partnerships, Rita's insight and influence continue to drive impact across sectors.
               </p>
               
               <p className="font-medium">
-                Welcome to Heritage Triage; where strategy meets identity, and business becomes borderless.
+                What Drives Her Work:
+              </p>
+              
+              <p>
+                Market Access: Enabling businesses to enter high-growth, underrepresented markets
+                <br />
+                Policy Influence: Supporting organizations to understand and shape regulatory landscapes
+                <br />
+                Inclusive Development: Advancing small businesses, women entrepreneurs, and global-local collaboration
+              </p>
+              
+              <p>
+                Today, Rita continues to lead with purpose—whether she's designing cross-border growth strategies, moderating trade panels, or shaping thought leadership across commercial diplomacy.
+              </p>
+              
+              <p>
+                She is currently authoring Adubra's Journey, a memoir chronicling her rise from modest beginnings in Ghana to influencing boardrooms and bilateral deals around the world.
               </p>
             </div>
           </div>
